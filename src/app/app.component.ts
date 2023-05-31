@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { CardPlayerService } from 'src/services/card-player.service';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +19,7 @@ export class AppComponent implements OnInit, OnDestroy {
   
   // component fields
   title = 'yugioh-v2-cardbattle-game';
-  private activatedCardSub: Subscription;
+  private activatedCardSub: Subscription = new Subscription;
 
   // internal state
   isCardPlayerActivated = false;
@@ -28,12 +29,16 @@ export class AppComponent implements OnInit, OnDestroy {
 
   // lifecycle hooks
   ngOnInit(): void {
-    this.activatedCardSub = this.cardPlayerService.activa
+    // 1) store returned subscription onInit
+    // 2) add subscribe event to the cardPlayerService's Subject<>
+    this.activatedCardSub = this.cardPlayerService.activatedCardEmitter.subscribe( (data: any) => {
+      this.isCardPlayerActivated = data;
+    })
   }
 
   // always unsubscribe from any active Subscriptions at the end of Angular lifecycle
   ngOnDestroy(): void {
-      this.activatedCardSub
+    this.activatedCardSub.unsubscribe();
   }
 
 }
