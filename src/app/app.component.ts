@@ -18,14 +18,22 @@ export class AppComponent implements OnInit, OnDestroy {
   
   // component fields
   title = 'yugioh-v2-cardbattle-game';
-  private activatedSub: Subscription;
+  private activatedCardSub: Subscription;
 
   // internal state
-  isUserActivated = false;
+  isCardPlayerActivated = false;
+
+  // add the CardPlayerService to the constructor
+  constructor(private cardPlayerService: CardPlayerService) {}
 
   // lifecycle hooks
   ngOnInit(): void {
-    this.activatedSub = this.userService.activa
+    this.activatedCardSub = this.cardPlayerService.activa
+  }
+
+  // always unsubscribe from any active Subscriptions at the end of Angular lifecycle
+  ngOnDestroy(): void {
+      this.activatedCardSub
   }
 
 }
