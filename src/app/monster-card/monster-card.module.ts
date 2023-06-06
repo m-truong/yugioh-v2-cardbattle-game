@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MonsterCardComponent } from './monster-card.component';
-
+import { MatCardModule } from '@angular/material/card';
 
 
 @NgModule({
@@ -9,7 +9,8 @@ import { MonsterCardComponent } from './monster-card.component';
     MonsterCardComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    MatCardModule,
   ]
 })
 export class MonsterCardModule { }
